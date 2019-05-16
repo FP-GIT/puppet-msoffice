@@ -40,6 +40,15 @@
 # [*deployment_root*]
 # The network location where the office installation media is stored
 #
+# [*setup_id*]
+# Setup Id of your office distribution.
+# To figure out the setup id of your Office version please have a look into your Office distribution folder (i.e. on your installation
+# DVD). There you will notice a folder ending in '.WW' which contains a 'setup.xml' file. Near the beginning of that file you will find
+# a line like this:
+# <Setup Id="SingleImage" Type="Product" ProductCode="{90140000-003D-0000-0000-0000000FF1CE}">
+# The 'Id' attributes denotes your setup id.
+# There is also a meaningful default value for this parameter but this does not work in every case.
+#
 # === Examples
 #
 #  To install Word and Excel packages from Office 2010 SP1:
@@ -51,6 +60,7 @@
 #     license_key => 'XXX-XXX-XXX-XXX-XXX',
 #     products    => ['Word,'Excel]
 #     ensure      => present,
+#     setup_id    => 'SingleImage',
 #   }
 #
 define msoffice(
@@ -62,7 +72,8 @@ define msoffice(
   $arch = 'x86',
   $products = [],
   $lang_code = 'en-us',
-  $ensure = 'present'
+  $ensure = 'present',
+  $setup_id = $msoffice::params::office_versions[$version]['editions'][$edition]['office_product'],
 ) {
 
   include msoffice::params
@@ -92,6 +103,7 @@ define msoffice(
     products        => $products,
     sp              => $sp,
     deployment_root => $deployment_root,
+    setup_id        => $setup_id,
   }
 
   if $ensure == 'present' {

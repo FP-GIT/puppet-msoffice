@@ -37,7 +37,7 @@
 #
 # === Examples
 #
-#  To install Word and Excel packages from Office 2010 SP1:
+#  To install Word and Excel packages from Office 2010 SP1:setup_
 #
 #   msoffice { 'office 2010':
 #     version     => '2010',
