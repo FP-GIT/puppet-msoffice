@@ -60,6 +60,7 @@ define msoffice::package(
   $deployment_root = '',
   $company_name = '',
   $user_name = '',
+  $setup_id = $msoffice::params::office_versions[$version]['editions'][$edition]['office_product'],
 ) {
 
   include msoffice::params
@@ -80,7 +81,7 @@ define msoffice::package(
   validate_re($sp,'^[0-3]$', 'The service pack specified does not match 0-3')
 
   $office_num = $msoffice::params::office_versions[$version]['version']
-  $office_product = $msoffice::params::office_versions[$version]['editions'][$edition]['office_product']
+  $office_product = $setup_id
   $product_key = $msoffice::params::office_versions[$version]['prod_key']
   $office_reg_key = "HKLM:\\SOFTWARE\\Microsoft\\Office\\${office_num}.0\\Common\\ProductVersion"
   $office_build = $msoffice::params::office_versions[$version]['service_packs'][$sp]['build']
