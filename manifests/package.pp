@@ -127,7 +127,7 @@ define msoffice::package(
         }
 
         exec { 'upgrade-office':
-          command   => "\"${office_root}\\setup.exe\" /modify ${office_product} /config \"${msoffice::params::temp_dir}\\office_config.xml\"",
+          command   => "\"${office_root}\\setup.exe\" /modify \"${office_product}\" /config \"${msoffice::params::temp_dir}\\office_config.xml\"",
           provider  => windows,
           logoutput => true,
           subscribe => File["${msoffice::params::temp_dir}\\office_config.xml"],
