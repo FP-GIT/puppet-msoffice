@@ -61,6 +61,9 @@ define msoffice::package(
   $company_name = '',
   $user_name = '',
   $setup_id = $msoffice::params::office_versions[$version]['editions'][$edition]['office_product'],
+  $config_mode = undef,
+  $config_owner = undef,
+  $config_group = undef,
 ) {
 
   include msoffice::params
@@ -92,14 +95,19 @@ define msoffice::package(
     $office_root = "${deployment_root}\\OFFICE${office_num}\\${edition}"
   }
 
+  $additional_config_file_attrs_source = {
+    mode  => $config_mode,
+    owner => $config_owner,
+    group => $config_group,
+  }
+  $additional_config_file_attrs = $additional_config_file_attrs_source.filter |$value| { !!$value }
+
   if $ensure == 'present' {
     if $version == '2003' {
       if $office_root {
         file { "${msoffice::params::temp_dir}\\office_config.ini":
           content => template('msoffice/setup.ini.erb'),
-          mode    => '0755',
-          owner   => 'Administrator',
-          group   => 'Administrators',
+          *       => $additional_config_file_attrs
         }
 
         exec { 'install-office':
@@ -114,9 +122,7 @@ define msoffice::package(
       if $office_root {
         file { "${msoffice::params::temp_dir}\\office_config.xml":
           content => template('msoffice/config.erb'),
-          mode    => '0755',
-          owner   => 'Administrator',
-          group   => 'Administrators',
+          *       => $additional_config_file_attrs,
         }
 
         exec { 'install-office':
