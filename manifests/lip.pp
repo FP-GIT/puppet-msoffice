@@ -55,7 +55,7 @@ define msoffice::lip(
   if ($facts['windows_systemtype'] == 'x64') and ($arch =='x86') {
     $lip_reg_key = "HKLM:\\SOFTWARE\\Wow6432Node\\Microsoft\\Office\\${office_num}.0\\Common\\LanguageResources\\InstalledUIs"
   } else {
-  $lip_reg_key = "HKLM:\\SOFTWARE\\Microsoft\\Office\\${office_num}.0\\Common\\LanguageResources\\InstalledUIs"
+    $lip_reg_key = "HKLM:\\SOFTWARE\\Microsoft\\Office\\${office_num}.0\\Common\\LanguageResources\\InstalledUIs"
   }
   $lang_id = $msoffice::params::lcid_strings[$lang_code]
   $setup = "languageinterfacepack-${arch}-${lang_code}.exe"

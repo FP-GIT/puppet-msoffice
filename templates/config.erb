@@ -32,4 +32,9 @@
 	<PIDKEY Value="<%= @license_key %>" />
 	<USERNAME Value="<%= @user_name %>" />
 	<Setting Id="SETUP_REBOOT" Value="NEVER" />
+
+	<% if @auto_activate %>
+	<Setting Id="AUTO_ACTIVATE" Value="1" />
+	<% end %>
+	
 </Configuration>

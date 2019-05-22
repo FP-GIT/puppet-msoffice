@@ -51,7 +51,7 @@ define msoffice::servicepack(
   if ($facts['windows_systemtype'] == 'x64') and ($arch =='x86') {
     $office_reg_key = "HKLM:\\SOFTWARE\\Wow6432Node\\Microsoft\\Office\\${office_num}.0\\Common\\ProductVersion"
   } else {
-  $office_reg_key = "HKLM:\\SOFTWARE\\Microsoft\\Office\\${office_num}.0\\Common\\ProductVersion"
+    $office_reg_key = "HKLM:\\SOFTWARE\\Microsoft\\Office\\${office_num}.0\\Common\\ProductVersion"
   }
 
   $lang_regex = join(keys($msoffice::params::lcid_strings), '|')

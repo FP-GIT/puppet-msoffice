@@ -61,6 +61,7 @@ define msoffice::package(
   $company_name = '',
   $user_name = '',
   $setup_id = $msoffice::params::office_versions[$version]['editions'][$edition]['office_product'],
+  $auto_activate = false,
   $config_mode = undef,
   $config_owner = undef,
   $config_group = undef,
