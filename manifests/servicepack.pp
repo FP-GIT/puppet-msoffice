@@ -66,10 +66,12 @@ define msoffice::servicepack(
   }
 
   $setup_with_lang_code = regsubst($setup, /%{lang_code}/, $lang_code)
+  $only_if = "if ((Get-Item -LiteralPath '${office_reg_key}' -ErrorAction SilentlyContinue).GetValue('LastProduct') -ge '${office_build}') { exit 1 }"
+
   exec { 'install-sp':
     command   => "& \"${sp_root}\\${setup_with_lang_code}\" /q /norestart",
     provider  => powershell,
     logoutput => true,
-    onlyif    => "if (Get-Item -LiteralPath \'\\${office_reg_key}\' -ErrorAction SilentlyContinue).GetValue(\'${office_build}\')) { exit 1 }",
+    onlyif    => $only_if,
   }
 }

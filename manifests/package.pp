@@ -142,7 +142,7 @@ define msoffice::package(
         command   => "& \"${office_root}\\setup.exe\" /x ${office_product}.msi /qb",
         provider  => powershell,
         logoutput => true,
-        onlyif    => "if (Get-Item -LiteralPath \'\\${office_reg_key}\' -ErrorAction SilentlyContinue).GetValue(\'${office_build}\')) { exit 1 }",
+        onlyif    => "if (Get-Item -LiteralPath '${office_reg_key}' -ErrorAction SilentlyContinue).GetValue('${office_build}')) { exit 1 }",
       }
 
       file { ["${msoffice::params::temp_dir}\\office_config.ini","${msoffice::params::temp_dir}\\office_install.log"]:
@@ -154,7 +154,7 @@ define msoffice::package(
         command   => "& \"${office_root}\\setup.exe\" /uninstall ${office_product} /config \"${msoffice::params::temp_dir}\\office_config.xml\"",
         provider  => powershell,
         logoutput => true,
-        onlyif    => "if (Get-Item -LiteralPath \'\\${office_reg_key}\' -ErrorAction SilentlyContinue).GetValue(\'${office_build}\')) { exit 1 }",
+        onlyif    => "if (Get-Item -LiteralPath '${office_reg_key}' -ErrorAction SilentlyContinue).GetValue('${office_build}')) { exit 1 }",
       }
     }
   } else { }

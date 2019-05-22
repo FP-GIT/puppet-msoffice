@@ -59,12 +59,13 @@ define msoffice::lip(
   }
   $lang_id = $msoffice::params::lcid_strings[$lang_code]
   $setup = "languageinterfacepack-${arch}-${lang_code}.exe"
+  $only_if = "if ((Get-Item -LiteralPath '${lip_reg_key}' -ErrorAction SilentlyContinue).GetValue('${lang_id}')) { exit 1 }"
 
   exec { 'install-lip':
     command   => "& \"${lip_root}\\${setup}\" /q /norestart",
     provider  => powershell,
     logoutput => true,
-    onlyif    => "if (Get-Item -LiteralPath \'\\${lip_reg_key}\' -ErrorAction SilentlyContinue).GetValue(\'${lang_id}\')) { exit 1 }",
+    onlyif    => $only_if,
   }
 
 }
