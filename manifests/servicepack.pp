@@ -48,7 +48,11 @@ define msoffice::servicepack(
   $office_build = $msoffice::params::office_versions[$version]['service_packs'][$sp]['build']
   $office_num = $msoffice::params::office_versions[$version]['version']
 
+  if ($facts['windows_systemtype'] == 'x64') and ($arch =='x86') {
+    $office_reg_key = "HKLM:\\SOFTWARE\\Wow6432Node\\Microsoft\\Office\\${office_num}.0\\Common\\ProductVersion"
+  } else {
   $office_reg_key = "HKLM:\\SOFTWARE\\Microsoft\\Office\\${office_num}.0\\Common\\ProductVersion"
+  }
 
   $lang_regex = join(keys($msoffice::params::lcid_strings), '|')
   validate_re($lang_code,"^${lang_regex}$", 'The lang_code argument does not specifiy a valid language identifier')
