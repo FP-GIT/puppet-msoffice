@@ -134,13 +134,12 @@ define msoffice::package(
           creates   => 'C:\\Program Files\\Microsoft Office',
           require   => File["${msoffice::params::temp_dir}\\office_config.xml"],
         }
-
-        exec { 'upgrade-office':
-          command   => "\"${office_root}\\setup.exe\" /modify \"${office_product}\" /config \"${msoffice::params::temp_dir}\\office_config.xml\"",
-          provider  => windows,
-          logoutput => true,
-          subscribe => File["${msoffice::params::temp_dir}\\office_config.xml"],
-          require   => File["${msoffice::params::temp_dir}\\office_config.xml"],
+        ~>exec { 'upgrade-office':
+          command     => "\"${office_root}\\setup.exe\" /modify \"${office_product}\" /config \"${msoffice::params::temp_dir}\\office_config.xml\"",
+          provider    => windows,
+          logoutput   => true,
+          refreshonly => true,
+          subscribe   => File["${msoffice::params::temp_dir}\\office_config.xml"],
         }
       }
     }
