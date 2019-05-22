@@ -114,6 +114,7 @@ define msoffice::package(
           command   => "\"${office_root}\\SETUP.EXE\" /settings \"${msoffice::params::temp_dir}\\office_config.ini\"",
           provider  => windows,
           logoutput => true,
+          timeout   => 600,
           subscribe => File["${msoffice::params::temp_dir}\\office_config.ini"],
           require   => File["${msoffice::params::temp_dir}\\office_config.ini"],
         }
@@ -129,6 +130,7 @@ define msoffice::package(
           command   => "\"${office_root}\\setup.exe\" /config \"${msoffice::params::temp_dir}\\office_config.xml\"",
           provider  => windows,
           logoutput => true,
+          timeout   => 600,
           creates   => 'C:\\Program Files\\Microsoft Office',
           require   => File["${msoffice::params::temp_dir}\\office_config.xml"],
         }
