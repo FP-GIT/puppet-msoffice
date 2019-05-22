@@ -34,7 +34,8 @@ define msoffice::servicepack(
   $version,
   $sp,
   $arch = 'x86',
-  $deployment_root = ''
+  $deployment_root = '',
+  $lang_code = 'en-us',
 ) {
 
   include msoffice::params
@@ -46,7 +47,11 @@ define msoffice::servicepack(
 
   $office_build = $msoffice::params::office_versions[$version]['service_packs'][$sp]['build']
   $office_num = $msoffice::params::office_versions[$version]['version']
+
   $office_reg_key = "HKLM:\\SOFTWARE\\Microsoft\\Office\\${office_num}.0\\Common\\ProductVersion"
+
+  $lang_regex = join(keys($msoffice::params::lcid_strings), '|')
+  validate_re($lang_code,"^${lang_regex}$", 'The lang_code argument does not specifiy a valid language identifier')
 
   if $version == '2010' {
     $setup = $msoffice::params::office_versions[$version]['service_packs'][$sp]['setup'][$arch]
@@ -56,8 +61,9 @@ define msoffice::servicepack(
     $sp_root = "${deployment_root}\\OFFICE${office_num}\\SPs"
   }
 
+  $setup_with_lang_code = regsubst($setup, /%{lang_code}/, $lang_code)
   exec { 'install-sp':
-    command   => "& \"${sp_root}\\${setup}\" /q /norestart",
+    command   => "& \"${sp_root}\\${setup_with_lang_code}\" /q /norestart",
     provider  => powershell,
     logoutput => true,
     onlyif    => "if (Get-Item -LiteralPath \'\\${office_reg_key}\' -ErrorAction SilentlyContinue).GetValue(\'${office_build}\')) { exit 1 }",

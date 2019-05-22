@@ -112,6 +112,7 @@ define msoffice(
       sp              => $sp,
       arch            => $arch,
       deployment_root => $deployment_root,
+      lang_code       => $lang_code,
     }
 
     msoffice::lip { "microsoft lip ${lang_code}":

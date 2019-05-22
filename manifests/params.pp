@@ -98,15 +98,15 @@ class msoffice::params {
           'build' => '12.0.4518.1014',
         },
         '1' => {
-          'setup' => 'office2007sp1-kb936982-fullfile-en-us.exe',
+          'setup' => 'office2007sp1-kb936982-fullfile-%{lang_code}.exe',
           'build' => '12.0.6215.1000',
         },
         '2' => {
-          'setup' => 'office2007sp2-kb953195-fullfile-en-us.exe',
+          'setup' => 'office2007sp2-kb953195-fullfile-%{lang_code}.exe',
           'build' => '12.0.6425.1000',
         },
         '3' => {
-          'setup' => 'office2007sp3-kb2526086-fullfile-en-us.exe',
+          'setup' => 'office2007sp3-kb2526086-fullfile-%{lang_code}.exe',
           'build' => '12.0.6612.1000',
         },
       },
@@ -149,15 +149,15 @@ class msoffice::params {
         },
         '1' => {
           'setup' => {
-            'x86' => 'officesuite2010sp1-kb2460049-x86-fullfile-en-us.exe',
-            'x64' => 'officesuite2010sp1-kb2460049-x64-fullfile-en-us.exe',
+            'x86' => 'officesuite2010sp1-kb2460049-x86-fullfile-%{lang_code}.exe',
+            'x64' => 'officesuite2010sp1-kb2460049-x64-fullfile-%{lang_code}.exe',
           },
           'build' => '14.0.6023.1000',
         },
         '2' => {
           'setup' => {
-            'x86' => 'officesp2010-kb2687455-fullfile-x86-en-us.exe',
-            'x64' => 'officesp2010-kb2687455-fullfile-x64-en-us.exe',
+            'x86' => 'officesp2010-kb2687455-fullfile-x86-%{lang_code}.exe',
+            'x64' => 'officesp2010-kb2687455-fullfile-x64-%{lang_code}.exe',
           },
           'build' => '14.0.7011.1000',
         },
